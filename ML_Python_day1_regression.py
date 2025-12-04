@@ -5,7 +5,7 @@ Machine Learning in Python with scikit-learn
 COVID dataset analysis (regression problem)
 Author: Irina Chelysheva
 
-Date: June 5th, 2025
+Date: Dec 5th, 2025
 COVID dataset extracted from OurWorldInData (https://github.com/owid/covid-19-data)
 """
 
@@ -24,17 +24,12 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 # 2. Set working directory, load, explore and prepare the dataset
-os.chdir('ML_DL_intro_python_June2025-main')
+#os.chdir('ML_DL_intro_python_Dec2025-main')
 df = pd.read_csv('owid_covid_for_ML_short.csv')
 print("Total data points",df.shape[0])
 print("Total number of features(as number of columns) are ", df.shape[1])
 df.describe()
 df.head()
-
-# Check skewness of the data
-skewness_before = df.select_dtypes(include=np.number).apply(lambda x: x.skew()).sort_values(ascending=False)
-print("Skewness before transformation:")
-print(skewness_before)
 
 #Check for null values
 null_values = df.isnull().values.any()
@@ -43,6 +38,11 @@ if null_values == True:
 else:
     print("There are no missing values in the dataset")
     
+# Check skewness of the data
+skewness_before = df.select_dtypes(include=np.number).apply(lambda x: x.skew()).sort_values(ascending=False)
+print("Skewness before transformation:")
+print(skewness_before)
+
 # 3. Log-transform numeric features to reduce skewness and stabilize variance
 #Note: ignore non-numeric columns
 for column in df.select_dtypes(include=np.number).columns:
